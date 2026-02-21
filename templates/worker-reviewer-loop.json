@@ -1,0 +1,29 @@
+{
+    "chain_name": "",
+    "description": "Standard Worker/Reviewer Loop (2 Glieder)",
+    "mode": "loop",
+    "max_rounds": 50,
+    "runtime_hours": 2,
+
+    "links": [
+        {
+            "name": "worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "generic_worker",
+            "task_pool": "default",
+            "description": "Arbeitet an einer Aufgabe"
+        },
+        {
+            "name": "reviewer",
+            "role": "reviewer",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "generic_reviewer",
+            "task_pool": "default",
+            "telegram_update": true,
+            "description": "Prueft die Arbeit"
+        }
+    ],
+
+    "_note": "Einfachste produktive Kette. Kopieren und anpassen."
+}

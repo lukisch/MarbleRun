@@ -1,0 +1,49 @@
+{
+    "chain_name": "ati-software",
+    "description": "ATI Software-Entwicklung: 3x Sonnet (je 10 Tasks) + Opus Review. Loop 3h.",
+    "mode": "loop",
+    "max_rounds": 20,
+    "runtime_hours": 3,
+    "max_consecutive_blocks": 5,
+
+    "links": [
+        {
+            "name": "sonnet-worker-1",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "ati_worker_sonnet",
+            "until_full": true,
+            "description": "Sonnet Worker 1: 10 ATI Software-Aufgaben"
+        },
+        {
+            "name": "sonnet-worker-2",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "ati_worker_sonnet",
+            "until_full": true,
+            "description": "Sonnet Worker 2: 10 ATI Software-Aufgaben"
+        },
+        {
+            "name": "sonnet-worker-3",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "ati_worker_sonnet",
+            "until_full": true,
+            "description": "Sonnet Worker 3: 10 ATI Software-Aufgaben"
+        },
+        {
+            "name": "opus-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "fallback_model": "claude-sonnet-4-5-20250929",
+            "prompt": "ati_reviewer_opus",
+            "continue": true,
+            "description": "Opus Controller: Prueft + fixt, akkumuliert Kontext ueber alle Runden"
+        }
+    ],
+
+    "prompts": {
+        "ati_worker_sonnet": {"type": "file", "path": "prompts/ati_worker_sonnet.txt"},
+        "ati_reviewer_opus": {"type": "file", "path": "prompts/ati_reviewer_opus.txt"}
+    }
+}

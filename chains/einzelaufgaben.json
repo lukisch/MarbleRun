@@ -1,0 +1,41 @@
+{
+    "chain_name": "einzelaufgaben",
+    "description": "Einzelaufgaben-Murmelbahn: 9 Aufgaben aus MODULAR_AGENTS, Queue-basiert, Opus-Controller + Skip-Pattern.",
+    "mode": "loop",
+    "max_rounds": 10,
+    "runtime_hours": 5,
+    "max_consecutive_blocks": 3,
+
+    "links": [
+        {
+            "name": "opus-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "prompt": "einzelaufgaben_controller",
+            "continue": true,
+            "description": "Opus Controller: Queue lesen, Aufgabe zuweisen (Opus/Sonnet), Review"
+        },
+        {
+            "name": "opus-worker",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "einzelaufgaben_opus_worker",
+            "until_full": true,
+            "description": "Opus Worker: Komplexe Aufgaben (Architektur, Forschung). Skip bei Sonnet-Zuweisung."
+        },
+        {
+            "name": "sonnet-worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "einzelaufgaben_sonnet_worker",
+            "until_full": true,
+            "description": "Sonnet Worker: Einfachere Aufgaben (Verschieben, READMEs, Cleanup). Skip bei Opus-Zuweisung."
+        }
+    ],
+
+    "prompts": {
+        "einzelaufgaben_controller": {"type": "file", "path": "prompts/einzelaufgaben_controller.txt"},
+        "einzelaufgaben_opus_worker": {"type": "file", "path": "prompts/einzelaufgaben_opus_worker.txt"},
+        "einzelaufgaben_sonnet_worker": {"type": "file", "path": "prompts/einzelaufgaben_sonnet_worker.txt"}
+    }
+}

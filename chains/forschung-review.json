@@ -1,0 +1,99 @@
+{
+    "chain_name": "forschung-review",
+    "description": "Forschung Review-Zyklus: Frischer Opus pro Runde + Sonnet Worker. 3 Durchgaenge, 9 Projekte. Danach review-only Chain als isolierter Kontrolllauf.",
+    "mode": "loop",
+    "max_rounds": 3,
+    "runtime_hours": 12,
+    "max_consecutive_blocks": 3,
+
+    "links": [
+        {
+            "name": "opus-reviewer",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_reviewer_opus",
+            "continue": false,
+            "description": "Opus Reviewer: Frischer Opus pro Runde, reviewt alle 9 Projekte streng (kein Kontext-Carry-over)"
+        },
+        {
+            "name": "sonnet-worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-5-20250929",
+            "prompt": "forschung_worker_sonnet",
+            "continue": true,
+            "until_full": true,
+            "description": "Sonnet Worker: Arbeitet Review-Verbesserungen ein, kann bis zu 3 Haiku-Agenten parallel starten"
+        }
+    ],
+
+    "prompts": {
+        "forschung_reviewer_opus": {"type": "file", "path": "prompts/forschung_reviewer_opus.txt"},
+        "forschung_worker_sonnet": {"type": "file", "path": "prompts/forschung_worker_sonnet.txt"}
+    },
+
+    "projects": [
+        {
+            "id": 1,
+            "name": "PP-FULL__Buergerdividende LLM",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\LLM\\PP-FULL__Buergerdividende LLM",
+            "status_prefix": "PP-FULL",
+            "description": "Peer-Review-bereiter Preprint: Buergerdividende und LLM"
+        },
+        {
+            "id": 2,
+            "name": "PP-FULL__Kognition LLM",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\LLM\\PP-FULL__Kognition LLM",
+            "status_prefix": "PP-FULL",
+            "description": "Peer-Review-bereiter Preprint: Kognition und LLM"
+        },
+        {
+            "id": 3,
+            "name": "!!DRAFT__SWR_Methode",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Methoden\\!!DRAFT__SWR_Methode",
+            "status_prefix": "DRAFT_2",
+            "description": "Draft: SWR-Methode, braucht Arbeit"
+        },
+        {
+            "id": 4,
+            "name": "Spieltheorie Urknall (CFM Cosmology)",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Natur&Technik\\Spieltheorie Urknall",
+            "status_prefix": "NONE",
+            "description": "CFM Cosmology / Spieltheorie Urknall -- Pfad mit & in Anfuehrungszeichen!"
+        },
+        {
+            "id": 5,
+            "name": "!!!DRAFT__Diagnostic",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Psychologie\\!!!DRAFT__Diagnostic",
+            "status_prefix": "DRAFT_3",
+            "description": "Fruehes Draft: Diagnostik, braucht viel Arbeit"
+        },
+        {
+            "id": 6,
+            "name": "HOLD__ADHS Autism Model",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Psychologie\\HOLD__ADHS Autism Model",
+            "status_prefix": "HOLD",
+            "description": "Pausiert: ADHS/Autismus-Modell, aber reviewbar"
+        },
+        {
+            "id": 7,
+            "name": "HOLD__Neues Therapie und Entwicklungsmodell Integrativ",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Psychologie\\HOLD__Neues Therapie und Entwicklunsmodell Integrativ",
+            "status_prefix": "HOLD",
+            "description": "Pausiert: Integratives Therapie- und Entwicklungsmodell, aber reviewbar"
+        },
+        {
+            "id": 8,
+            "name": "!!!DRAFT__Transhumanismus2",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Sozialwissenschaft\\!!!DRAFT__Transhumanismus2",
+            "status_prefix": "DRAFT_3",
+            "description": "Fruehes Draft: Transhumanismus 2, braucht viel Arbeit"
+        },
+        {
+            "id": 9,
+            "name": "DRAFT__Kant Friedensframework",
+            "path": "C:\\Users\\User\\OneDrive\\Forschung\\Sozialwissenschaft\\DRAFT__Kant Friedensframework",
+            "status_prefix": "DRAFT_1",
+            "description": "Fortgeschrittenes Draft: Kant Friedensframework"
+        }
+    ]
+}

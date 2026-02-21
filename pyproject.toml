@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llmauto"
+version = "0.1.0"
+description = "LLM automation framework: chain execution, prompt management, and autonomous agent loops for Claude Code"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Lukas Geiger", email = "lukisch@users.noreply.github.com"},
+]
+keywords = ["llm", "automation", "claude", "agent", "chain", "marble-run"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://github.com/lukisch/llmauto"
+Repository = "https://github.com/lukisch/llmauto"
+Issues = "https://github.com/lukisch/llmauto/issues"
+
+[project.scripts]
+llmauto = "llmauto.llmauto:main"
+
+[tool.setuptools.packages.find]
+include = ["llmauto*"]
+
+[tool.setuptools.package-data]
+llmauto = [
+    "chains/*.json",
+    "prompts/*.txt",
+    "templates/*.json",
+    "config.json",
+]

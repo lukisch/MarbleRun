@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Runtime data (user-specific, not published)
+state/
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PDFs (generated, large)
+*.pdf
+
+# Temp scripts
+temp_*.py
+check_*.py
+cleanup_*.py
+analyze_*.py
+add_*.py
+update_*.py
+test_*.py
