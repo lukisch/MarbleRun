@@ -1,3 +1,7 @@
+# Internal planning files
+PLAN.txt
+PLAN_*.txt
+
 # Python
 __pycache__/
 *.py[cod]
@@ -11,6 +15,10 @@ build/
 state/
 logs/
 *.log
+
+# Private chains and prompts (personal, not published)
+chains/_private/
+prompts/_private/
 
 # IDE
 .vscode/

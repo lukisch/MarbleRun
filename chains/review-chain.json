@@ -1,0 +1,25 @@
+{
+    "chain_name": "review-chain",
+    "description": "Single-pass review: one Opus reviewer evaluates a set of artifacts (documents, code, etc.) and writes a structured review report.",
+    "mode": "once",
+    "max_rounds": 1,
+    "runtime_hours": 3,
+
+    "links": [
+        {
+            "name": "opus-reviewer",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "example_reviewer",
+            "continue": false,
+            "until_full": true,
+            "description": "Opus reviewer: reads all artifacts, produces a structured quality report with APPROVED / NEEDS_FIX / BLOCKED verdict per item"
+        }
+    ],
+
+    "prompts": {
+        "example_reviewer": {"type": "file", "path": "prompts/example_reviewer.txt"}
+    },
+
+    "_note": "Adapt 'artifacts' list in the prompt to point to your files/folders. For multi-item review spawn sub-agents via Task tool."
+}

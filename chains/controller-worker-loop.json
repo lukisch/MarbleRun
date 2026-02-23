@@ -1,0 +1,42 @@
+{
+    "chain_name": "controller-worker-loop",
+    "description": "Controller/Worker loop with skip pattern: Opus controller assigns tasks to either Opus or Sonnet worker based on complexity.",
+    "mode": "loop",
+    "max_rounds": 20,
+    "runtime_hours": 4,
+    "max_consecutive_blocks": 3,
+
+    "links": [
+        {
+            "name": "opus-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "prompt": "example_controller",
+            "continue": true,
+            "description": "Controller: reads task queue, assigns each task to Opus or Sonnet worker, reviews results"
+        },
+        {
+            "name": "opus-worker",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "example_worker",
+            "until_full": true,
+            "description": "Opus worker: handles complex tasks (architecture, research). Skips if controller assigned to Sonnet."
+        },
+        {
+            "name": "sonnet-worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-6",
+            "prompt": "example_worker",
+            "until_full": true,
+            "description": "Sonnet worker: handles simpler tasks (cleanup, docs, refactoring). Skips if controller assigned to Opus."
+        }
+    ],
+
+    "prompts": {
+        "example_controller": {"type": "file", "path": "prompts/example_controller.txt"},
+        "example_worker":     {"type": "file", "path": "prompts/example_worker.txt"}
+    },
+
+    "_note": "Skip pattern: controller writes 'ASSIGNED: opus' or 'ASSIGNED: sonnet' in handoff. The non-assigned worker reads and skips."
+}
