@@ -23,7 +23,7 @@ Fertige Ketten werden als wiederverwendbare Patterns gespeichert.
     "deadline": "2026-03-31",
 
     "defaults": {
-        "model": "claude-sonnet-4-5-20250929",
+        "model": "claude-sonnet-4-6",
         "permission_mode": "dontAsk",
         "allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
         "timeout_seconds": 1800,
@@ -35,7 +35,7 @@ Fertige Ketten werden als wiederverwendbare Patterns gespeichert.
             "name": "opus-worker",
             "role": "worker",
             "model": "claude-opus-4-6",
-            "fallback_model": "claude-sonnet-4-5-20250929",
+            "fallback_model": "claude-sonnet-4-6",
             "prompt": "worker_opus",
             "task_pool": "masterplan",
             "description": "Opus arbeitet an einer Aufgabe"
@@ -43,7 +43,7 @@ Fertige Ketten werden als wiederverwendbare Patterns gespeichert.
         {
             "name": "sonnet-reviewer",
             "role": "reviewer",
-            "model": "claude-sonnet-4-5-20250929",
+            "model": "claude-sonnet-4-6",
             "prompt": "reviewer_sonnet",
             "task_pool": "masterplan",
             "description": "Sonnet reviewed die Aenderung"
@@ -59,7 +59,7 @@ Fertige Ketten werden als wiederverwendbare Patterns gespeichert.
             "name": "opus-reviewer",
             "role": "reviewer",
             "model": "claude-opus-4-6",
-            "fallback_model": "claude-sonnet-4-5-20250929",
+            "fallback_model": "claude-sonnet-4-6",
             "prompt": "reviewer_opus",
             "task_pool": "masterplan",
             "telegram_update": true,

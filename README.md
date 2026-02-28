@@ -64,7 +64,7 @@ Create a JSON file in `chains/` (e.g. `chains/my-chain.json`):
     {
       "name": "worker",
       "role": "worker",
-      "model": "claude-sonnet-4-5-20250929",
+      "model": "claude-sonnet-4-6",
       "prompt": "worker_prompt.txt"
     },
     {
@@ -249,7 +249,7 @@ llmauto/
 
 | Setting | Default |
 |---------|---------|
-| `default_model` | `claude-sonnet-4-5-20250929` |
+| `default_model` | `claude-sonnet-4-6` |
 | `default_permission_mode` | `dontAsk` |
 | `default_allowed_tools` | Read, Edit, Write, Bash, Glob, Grep |
 | `default_timeout_seconds` | 7200 (2h) |

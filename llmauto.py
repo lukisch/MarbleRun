@@ -13,6 +13,7 @@ Verwendung:
     python llmauto.py chain stop <name> [grund]  Kette stoppen
     python llmauto.py chain log <name> [N]       Log anzeigen
     python llmauto.py chain reset <name>         State zuruecksetzen
+    python llmauto.py chain create                Neue Kette interaktiv erstellen
 
     python llmauto.py pipe "prompt"              Einzelner Claude-Aufruf
     python llmauto.py pipe -f prompt.txt         Prompt aus Datei
@@ -96,6 +97,11 @@ def cmd_chain(args):
             return 1
         return reset_chain(args.name)
 
+    elif action == "create":
+        from llmauto.core.chain_creator import create_chain
+        create_chain()
+        return 0
+
     else:
         print(f"Unbekannte Chain-Aktion: {action}")
         return 1
@@ -128,7 +134,7 @@ def cmd_pipe(args):
         print("Fehler: Leerer Prompt.")
         return 1
 
-    model = args.model or global_config.get("default_model", "claude-sonnet-4-5-20250929")
+    model = args.model or global_config.get("default_model", "claude-sonnet-4-6")
     runner = ClaudeRunner(
         model=model,
         fallback_model=args.fallback,
@@ -175,7 +181,7 @@ def main():
 
     # --- chain ---
     chain_parser = subparsers.add_parser("chain", help="Ketten-Modus (Marble-Run)")
-    chain_parser.add_argument("chain_action", choices=["start", "list", "status", "stop", "log", "reset"],
+    chain_parser.add_argument("chain_action", choices=["start", "list", "status", "stop", "log", "reset", "create"],
                               help="Aktion")
     chain_parser.add_argument("name", nargs="?", default=None, help="Ketten-Name")
     chain_parser.add_argument("extra", nargs="*", help="Zusaetzliche Argumente (Grund bei stop, Zeilenanzahl bei log)")

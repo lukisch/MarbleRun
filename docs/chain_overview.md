@@ -257,7 +257,7 @@ Phase 2: review-only (Kontrolle)
 
 | Einstellung | Wert |
 |---|---|
-| Default-Modell | claude-sonnet-4-5-20250929 |
+| Default-Modell | claude-sonnet-4-6 |
 | Permission-Mode | dontAsk |
 | Timeout pro Link | 7200s (2h) |
 | Telegram | deaktiviert |

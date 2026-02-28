@@ -29,6 +29,7 @@ prompts/_private/
 # Private / Archive
 _archive/
 _private/
+_debris/
 
 # Virtual Environment
 .venv/
@@ -45,11 +46,11 @@ desktop.ini
 # PDFs (generated, large)
 *.pdf
 
-# Temp scripts
-temp_*.py
-check_*.py
-cleanup_*.py
-analyze_*.py
-add_*.py
-update_*.py
-test_*.py
+# Temp scripts (root-level only, not tests/)
+/temp_*.py
+/check_*.py
+/cleanup_*.py
+/analyze_*.py
+/add_*.py
+/update_*.py
+/test_*.py

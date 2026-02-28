@@ -81,6 +81,49 @@ class ChainState:
     def write_handoff(self, content):
         self.handoff_file.write_text(content, encoding="utf-8")
 
+    def get_link_handoff_file(self, link_name):
+        """Gibt den Pfad zur per-Link Handoff-Datei zurueck."""
+        return self.state_dir / f"handoff_{link_name}.md"
+
+    def save_link_handoff(self, link_name):
+        """Speichert den aktuellen Handoff-Inhalt als per-Link Kopie.
+
+        Schuetzt gegen den Skip-Pattern-Overwrite-Bug: Wenn ein Worker
+        nur 'SKIPPED' schreibt, wird stattdessen nur die per-Link Datei
+        aktualisiert und der Haupt-Handoff bleibt erhalten.
+        """
+        current = self.get_handoff()
+        link_file = self.get_link_handoff_file(link_name)
+        link_file.write_text(current, encoding="utf-8")
+        return current
+
+    def protect_handoff_from_skip(self, link_name, handoff_before):
+        """Stellt den Handoff wieder her wenn ein Worker ihn mit SKIP ueberschrieben hat.
+
+        Erkennt ob der aktuelle Handoff nur eine Skip-Nachricht ist
+        (kurz + enthaelt SKIP/SKIPPED). Falls ja: Handoff auf den
+        Zustand VOR dem Link zuruecksetzen, Skip nur in per-Link Datei speichern.
+
+        Returns: True wenn Handoff wiederhergestellt wurde, False sonst.
+        """
+        current = self.get_handoff()
+        # Skip-Erkennung: Handoff ist deutlich kuerzer und enthaelt Skip-Marker
+        is_skip = (
+            len(current.strip()) < 500
+            and "SKIP" in current.upper()
+            and len(current) < len(handoff_before) * 0.5
+        )
+        if is_skip and handoff_before.strip():
+            # Per-Link Datei bekommt den Skip-Inhalt
+            link_file = self.get_link_handoff_file(link_name)
+            link_file.write_text(current, encoding="utf-8")
+            # Haupt-Handoff wiederherstellen
+            self.write_handoff(handoff_before)
+            return True
+        # Kein Skip: Per-Link Datei bekommt den echten Inhalt
+        self.save_link_handoff(link_name)
+        return False
+
     # --- Shutdown ---
 
     def request_stop(self, reason="Manuell gestoppt"):

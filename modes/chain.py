@@ -174,7 +174,7 @@ def run_chain(chain_name, background=False):
 
                 link_name = link.get("name", f"link-{i+1}")
                 role = link.get("role", "worker")
-                model = link.get("model") or global_config.get("default_model", "claude-sonnet-4-5-20250929")
+                model = link.get("model") or global_config.get("default_model", "claude-sonnet-4-6")
                 fallback = link.get("fallback_model")
 
                 # Continue-Modus: Dediziertes CWD damit --continue
@@ -202,10 +202,10 @@ def run_chain(chain_name, background=False):
 
                 # Prompt aufloesen + {HOME} durch tatsaechliches User-Home ersetzen
                 prompt_text = resolve_prompt(link, config)
-                home_win = _ACTUAL_HOME.rstrip(os.sep)  # z.B. C:\Users\lukas
-                # C:\Users\lukas -> /c/Users/lukas (nur Laufwerksbuchstabe lowercase)
+                home_win = _ACTUAL_HOME.rstrip(os.sep)  # z.B. C:\Users\YourName
+                # C:\Users\YourName -> /c/Users/YourName (Laufwerksbuchstabe lowercase)
                 drive, rest = home_win.split(":", 1)
-                home_bash = "/" + drive.lower() + rest.replace("\\", "/")  # z.B. /c/Users/lukas
+                home_bash = "/" + drive.lower() + rest.replace("\\", "/")  # z.B. /c/Users/YourName
                 prompt_text = prompt_text.replace("{HOME}", home_win)
                 prompt_text = prompt_text.replace("{BASH_HOME}", home_bash)
 
@@ -213,11 +213,20 @@ def run_chain(chain_name, background=False):
                 if link.get("until_full", False):
                     prompt_text += UNTIL_FULL_SUFFIX
 
+                # Handoff VOR dem Link sichern (Skip-Pattern-Overwrite-Schutz)
+                handoff_before = state.get_handoff()
+
                 if is_continuation:
                     log(f"{link_name} ({role}): CONTINUE {model}...", chain_name)
                 else:
                     log(f"{link_name} ({role}): Starte {model}...", chain_name)
                 result = runner.run(prompt_text, continue_conversation=is_continuation)
+
+                # Skip-Pattern-Schutz: Handoff wiederherstellen wenn Worker
+                # nur "SKIPPED" geschrieben hat (loest den Overwrite-Bug)
+                was_skip = state.protect_handoff_from_skip(link_name, handoff_before)
+                if was_skip:
+                    log(f"  SKIP-SCHUTZ: {link_name} hat Handoff mit SKIP ueberschrieben -> wiederhergestellt", chain_name)
 
                 # Output-Log: stdout/stderr jedes Glieds in eigene Datei schreiben
                 output_log = LOG_DIR / f"{chain_name}_{link_name}.log"

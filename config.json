@@ -1,5 +1,5 @@
 {
-    "default_model": "claude-sonnet-4-5-20250929",
+    "default_model": "claude-sonnet-4-6",
     "default_permission_mode": "dontAsk",
     "default_allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
     "default_timeout_seconds": 7200,

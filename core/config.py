@@ -10,16 +10,16 @@ from copy import deepcopy
 
 BASE_DIR = Path(__file__).parent.parent
 
-# Bekannte User-Home-Pfade (Workstation + Laptop)
+# Bekannte User-Home-Pfade fuer Cross-Machine Normalisierung.
+# Eigene Pfade hier oder in config.json unter "known_user_homes" eintragen.
 _KNOWN_USER_HOMES = [
-    "C:\\Users\\lukas\\",
     "C:\\Users\\User\\",
 ]
-_ACTUAL_HOME = str(Path.home()) + os.sep  # z.B. "C:\Users\lukas\"
+_ACTUAL_HOME = str(Path.home()) + os.sep
 
 
 DEFAULT_GLOBAL_CONFIG = {
-    "default_model": "claude-sonnet-4-5-20250929",
+    "default_model": "claude-sonnet-4-6",
     "default_permission_mode": "dontAsk",
     "default_allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
     "default_timeout_seconds": 1800,
@@ -59,11 +59,21 @@ DEFAULT_LINK = {
 
 
 def load_global_config():
-    """Laedt die globale Konfiguration."""
+    """Laedt die globale Konfiguration.
+
+    Unterstuetzt "known_user_homes" in config.json fuer zusaetzliche
+    Pfad-Normalisierung (z.B. ["C:\\\\Users\\\\MeinName\\\\"]).
+    """
+    global _KNOWN_USER_HOMES
     config_file = BASE_DIR / "config.json"
     if config_file.exists():
         with open(config_file, "r", encoding="utf-8") as f:
             user_config = json.load(f)
+        # Zusaetzliche User-Homes aus Config laden
+        extra_homes = user_config.pop("known_user_homes", [])
+        for home in extra_homes:
+            if home not in _KNOWN_USER_HOMES:
+                _KNOWN_USER_HOMES.append(home)
         config = deepcopy(DEFAULT_GLOBAL_CONFIG)
         config.update(user_config)
         return config
@@ -80,8 +90,8 @@ def save_global_config(config):
 def _normalize_paths(obj):
     """Ersetzt bekannte User-Home-Pfade durch den aktuellen.
 
-    Damit funktionieren Chain-Configs auf Workstation (C:\\Users\\lukas)
-    und Laptop (C:\\Users\\User) ohne Anpassung.
+    Damit funktionieren Chain-Configs auf verschiedenen Rechnern
+    ohne manuelle Pfad-Anpassung.
     """
     if isinstance(obj, str):
         for known in _KNOWN_USER_HOMES:
