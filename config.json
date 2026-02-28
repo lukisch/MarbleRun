@@ -1,4 +1,5 @@
 {
+    "known_user_homes": [],
     "default_model": "claude-sonnet-4-6",
     "default_permission_mode": "dontAsk",
     "default_allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
