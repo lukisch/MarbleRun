@@ -1,4 +1,10 @@
-# llmauto -- LLM Automation Framework (Marble Runs)
+<p align="center">
+  <img src="ellmos-logo.jpg" alt="MarbleRun logo" width="300">
+</p>
+
+# llmauto -- LLM Automation Framework (MarbleRun)
+
+*Automation & workflow system by [ellmos-ai](https://github.com/ellmos-ai).*
 
 Universal automation tool for LLM agents.
 Chain execution, prompt management, autonomous work loops.
