@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ellmos-logo.jpg" alt="MarbleRun logo" width="300">
+  <img src="MarbleRun_symbol_logo.jpg" alt="MarbleRun banner" width="700">
 </p>
 
 # llmauto -- LLM Automation Framework (MarbleRun)
