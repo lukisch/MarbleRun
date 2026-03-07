@@ -275,6 +275,22 @@ See `chains/` for the full set of included chain definitions.
 
 ---
 
+## See Also: OpenClaw
+
+MarbleRun makes LLMs act -- autonomous multi-agent chains where workers, reviewers, and controllers collaborate in loops. How does it compare to [OpenClaw](https://github.com/openclaw/openclaw) (274K+ stars)?
+
+| | **MarbleRun** | **OpenClaw** |
+|---|---|---|
+| **Focus** | Autonomous multi-agent orchestration -- make LLMs act | Personal AI assistant -- conversational gateway |
+| **Execution** | Multi-agent chains: Worker -> Reviewer -> Controller loops | Single-agent responding to messages |
+| **Autonomy** | Fully autonomous -- chains run for hours unattended (rounds, deadlines, shutdown conditions) | Reactive -- responds to user input, cron/webhooks for automation |
+| **Multi-model** | Mix Opus, Sonnet, Haiku in one chain with role-based assignment | Model selection per session, failover support |
+| **State** | Handoff files, round counters, persistent sessions (`continue` mode) | Session history with `/compact` summarization |
+| **Dependencies** | Zero -- pure Python stdlib + Claude Code CLI | Node.js 22+, numerous npm packages |
+| **License** | MIT | MIT |
+
+**In short:** OpenClaw connects LLMs to conversations. MarbleRun connects LLMs to each other -- creating autonomous work loops where agents collaborate, review, and iterate without human intervention.
+
 ## License
 
 MIT License. See [LICENSE](LICENSE).
