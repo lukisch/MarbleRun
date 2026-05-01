@@ -1,0 +1,253 @@
+{
+    "chain_name": "forschung-kritik-schleife",
+    "description": "Kritik-Verbesserungs-Schleife: K1->R1->K2->R1->12x K-einzeln->R-final fuer 12 Forschungsprojekte (Opus)",
+    "mode": "once",
+    "max_rounds": 1,
+    "runtime_hours": 24,
+    "deadline": "2026-03-15",
+    "max_consecutive_blocks": 3,
+    "defaults": {
+        "model": "claude-opus-4-6",
+        "permission_mode": "dontAsk",
+        "allowed_tools": [
+            "Read",
+            "Edit",
+            "Write",
+            "Bash",
+            "Glob",
+            "Grep",
+            "WebSearch",
+            "WebFetch"
+        ],
+        "timeout_seconds": 3600
+    },
+    "links": [
+        {
+            "name": "k1-sammelreview",
+            "role": "reviewer",
+            "prompt": "forschung_k_sammelreview",
+            "continue": false,
+            "until_full": true,
+            "description": "K1: Opus Kritiker reviewt alle 12 Projekte (Sammelreview Runde 1)",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "r-scientist",
+            "role": "worker",
+            "prompt": "forschung_r_wissenschaftler",
+            "continue": true,
+            "until_full": true,
+            "description": "R1: Opus Wissenschaftler ueberarbeitet alle Projekte nach K1",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k2-sammelreview",
+            "role": "reviewer",
+            "prompt": "forschung_k_sammelreview_2",
+            "continue": false,
+            "until_full": true,
+            "description": "K2: Opus Kritiker reviewt alle Projekte erneut nach Ueberarbeitung",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "r-scientist",
+            "role": "worker",
+            "prompt": "forschung_r_wissenschaftler_2",
+            "continue": true,
+            "until_full": true,
+            "description": "R1-2: Opus Wissenschaftler ueberarbeitet nach K2 (continue)",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-buergerdividende",
+            "role": "reviewer",
+            "prompt": "k_einzel_buergerdividende",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Buergerdividende LLM",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-kognition",
+            "role": "reviewer",
+            "prompt": "k_einzel_kognition",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Kognition LLM",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-fractal",
+            "role": "reviewer",
+            "prompt": "k_einzel_fractal",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Fractal-Game-Theory",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-adhs",
+            "role": "reviewer",
+            "prompt": "k_einzel_adhs",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review ADHS Autism Model",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-therapie",
+            "role": "reviewer",
+            "prompt": "k_einzel_therapie",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Therapie Integrativ",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-pali",
+            "role": "reviewer",
+            "prompt": "k_einzel_pali",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Pali-Psycho",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-metaphern",
+            "role": "reviewer",
+            "prompt": "k_einzel_metaphern",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Metaphern",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-taa",
+            "role": "reviewer",
+            "prompt": "k_einzel_taa",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review TAA",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-spuk",
+            "role": "reviewer",
+            "prompt": "k_einzel_spuk",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Spuk",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-kant",
+            "role": "reviewer",
+            "prompt": "k_einzel_kant",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Kant Friedensframework",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-frieden",
+            "role": "reviewer",
+            "prompt": "k_einzel_frieden",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Frieden (JPR-Ablehnung)",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "k-einzel-transhumanismus-swr",
+            "role": "reviewer",
+            "prompt": "k_einzel_transhumanismus_swr",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln: Spezialisierter Review Transhumanismus + SWR_Methode (Kombiprojekt)",
+            "model": "claude-opus-4-6"
+        },
+        {
+            "name": "r-scientist",
+            "role": "worker",
+            "prompt": "forschung_r_final",
+            "continue": true,
+            "until_full": true,
+            "telegram_update": true,
+            "description": "R-final: Opus Wissenschaftler finale Ueberarbeitung nach allen Einzelreviews (continue)",
+            "model": "claude-opus-4-6"
+        }
+    ],
+    "prompts": {
+        "forschung_k_sammelreview": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_sammelreview.txt"
+        },
+        "forschung_k_sammelreview_2": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_sammelreview_2.txt"
+        },
+        "forschung_r_wissenschaftler": {
+            "type": "file",
+            "path": "prompts/_private/forschung_r_wissenschaftler.txt"
+        },
+        "forschung_r_wissenschaftler_2": {
+            "type": "file",
+            "path": "prompts/_private/forschung_r_wissenschaftler_2.txt"
+        },
+        "forschung_r_final": {
+            "type": "file",
+            "path": "prompts/_private/forschung_r_final.txt"
+        },
+        "k_einzel_buergerdividende": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Buergerdividende LLM\n=====================\n\nDu bist ein spezialisierter Reviewer fuer INFORMATIK und LLM-FORSCHUNG.\nDu hast Expertise in: KI-Systemen, Sozialpolitik-Modellierung, Universal Basic Income, Computational Social Science.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\LLM\\PP-FULL__Buergerdividende LLM\nStatus: PP-FULL (Preprint mit DOI, LinkedIn, ResearchGate)\nTemplate: cs_ieee\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies die bisherigen Sammelreviews:\n   - {HOME}\\OneDrive\\Forschung\\_reviews\\sammelreview_K1.md\n   - {HOME}\\OneDrive\\Forschung\\_reviews\\sammelreview_K2.md\n3. Lies ALLE .tex und .bib Dateien im Projektordner\n4. Lies Plan.txt fuer Kontext\n5. Fuehre ein TIEFGEHENDES Review durch mit Fokus auf:\n   - Technische Korrektheit der LLM-Analyse\n   - Validitaet des Buergerdividende-Modells\n   - Quantitative Methodik und Reproduzierbarkeit\n   - IEEE-Format-Konformitaet\n   - Quellenqualitaet (WebSearch fuer Verifikation!)\n\nAUSGABE:\nSchreibe das vollstaendige Review als: {HOME}\\OneDrive\\Forschung\\LLM\\PP-FULL__Buergerdividende LLM\\_review_einzeln.md\n\nFormat: Exakt wie in review_journal_streng.txt beschrieben (vollstaendiges Peer-Review-Format mit Bewertungstabelle).\n\nHANDOFF:\nSchreibe in handoff.md NUR eine 5-Zeilen-Zusammenfassung:\n- Projekt: Buergerdividende LLM\n- Gesamtnote: X/10\n- Empfehlung: ...\n- Top-Issue: ...\n- Review-Datei: [Pfad zur _review_einzeln.md]"
+        },
+        "k_einzel_kognition": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Kognition LLM\n=====================\n\nDu bist ein spezialisierter Reviewer fuer KOGNITIONSWISSENSCHAFT und KI.\nDu hast Expertise in: Kognitionspsychologie, Computational Cognition, LLM-Architekturen, Philosophy of Mind.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\LLM\\PP-FULL__Kognition LLM\nStatus: PP-FULL (Preprint mit DOI, LinkedIn, ResearchGate)\nTemplate: cs_ieee\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies die bisherigen Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n3. Lies ALLE .tex und .bib Dateien im Projektordner\n4. Lies Plan.txt\n5. Tiefgehendes Review mit Fokus auf:\n   - Kognitionswissenschaftliche Fundierung\n   - Bruecke zwischen Kognitionstheorie und LLM-Technik\n   - Empirische vs. theoretische Ansprueche\n   - Aktualitaet der Literatur (Kognitionswissenschaft entwickelt sich schnell!)\n   - Quellenverifikation via WebSearch\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\LLM\\PP-FULL__Kognition LLM\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review (review_journal_streng.txt Format).\n\nHANDOFF: 5-Zeilen-Zusammenfassung (Projekt, Note, Empfehlung, Top-Issue, Pfad)"
+        },
+        "k_einzel_fractal": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Fractal-Game-Theory\n=====================\n\nDu bist ein spezialisierter Reviewer fuer THEORETISCHE PHYSIK und MATHEMATIK.\nDu hast Expertise in: Spieltheorie, Fraktale Geometrie, Skalenuebergreifende Modelle, Statistische Mechanik, Foundations of Physics.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\Natur&Technik\\DRAFT__Fractal-Game-Theory\nStatus: DRAFT (fruehes Stadium)\nTemplate: physics_revtex\nZiel-Journal: Foundations of Physics\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n3. Lies ALLE .tex und .bib Dateien\n4. Lies Plan.txt\n5. Tiefgehendes Review mit Fokus auf:\n   - MATHEMATISCHE STRINGENZ (Beweise, Definitionen, Konsistenz)\n   - Physikalische Plausibilitaet der Skalenuebergaenge\n   - Neuheitswert gegenueber bestehender Spieltheorie-Literatur\n   - RevTeX-Format-Konformitaet\n   - Foundations of Physics-Tauglichkeit\n\nACHTUNG: Als DRAFT-Projekt -- konstruktive Kritik besonders wichtig!\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\Natur&Technik\\DRAFT__Fractal-Game-Theory\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review.\n\nHANDOFF: 5-Zeilen-Zusammenfassung"
+        },
+        "k_einzel_adhs": {
+            "type": "inline",
+            "content": "EINZELREVIEW: ADHS Autism Model\n=====================\n\nDu bist ein spezialisierter Reviewer fuer KLINISCHE PSYCHOLOGIE und NEURODIVERSITAET.\nDu hast Expertise in: ADHS, Autismus-Spektrum, DSM-5/ICD-11, Neuropsychologie, komorbide Modelle.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__ADHS Autism Model\nStatus: HOLD (zurueckgestellt)\nTemplate: psychology_apa\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n3. Lies ALLE .tex und .bib Dateien\n4. Lies Plan.txt\n5. Tiefgehendes Review mit Fokus auf:\n   - Klinische Evidenzbasis (aktuelle Meta-Analysen, RCTs)\n   - DSM-5/ICD-11-Konsistenz der Modellierung\n   - Abgrenzung zu bestehenden ADHS-Autismus-Modellen\n   - APA-7-Format-Konformitaet\n   - Ethische Implikationen der Modellierung\n   - Quellenaktualitaet (Neurodiversitaets-Forschung aendert sich schnell!)\n\nHINWEIS: HOLD-Status bedeutet das Paper ist zurueckgestellt -- reviewe trotzdem gruendlich, die Kritik hilft bei spaeterer Wiederaufnahme.\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__ADHS Autism Model\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review.\n\nHANDOFF: 5-Zeilen-Zusammenfassung"
+        },
+        "k_einzel_therapie": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Neues Therapie und Entwicklungsmodell Integrativ\n=====================\n\nDu bist ein spezialisierter Reviewer fuer PSYCHOTHERAPIEFORSCHUNG und ENTWICKLUNGSPSYCHOLOGIE.\nDu hast Expertise in: Integrative Therapieansaetze, Entwicklungsmodelle, Psychotherapie-Outcome-Forschung, Common Factors.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__Neues Therapie und Entwicklunsmodell Integrativ\nStatus: HOLD (2 Artikel)\nTemplate: psychology_apa\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n3. Lies ALLE .tex und .bib Dateien (ACHTUNG: 2 Artikel!)\n4. Lies Plan.txt\n5. Tiefgehendes Review mit Fokus auf:\n   - Theoretische Integration: Wie gut werden verschiedene Therapieschulen verbunden?\n   - Evidenzbasis fuer das integrative Modell\n   - Entwicklungspsychologische Fundierung\n   - Praktische Anwendbarkeit des Modells\n   - Kohaerenz BEIDER Artikel\n   - APA-7-Format\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__Neues Therapie und Entwicklunsmodell Integrativ\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review (beide Artikel bewerten!).\n\nHANDOFF: 5-Zeilen-Zusammenfassung"
+        },
+        "k_einzel_pali": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Pali-Psycho\n=====================\n\nDu bist ein spezialisierter Reviewer fuer RELIGIONSWISSENSCHAFT und BUDDHISTISCHE PSYCHOLOGIE.\nDu hast Expertise in: Pali-Kanon, Abhidhamma, kontemplative Psychologie, Mindfulness-Forschung, komparative Religionswissenschaft.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__Pali-Psycho\nStatus: HOLD (3 Artikel)\nTemplate: religion_humanities\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n3. Lies ALLE .tex und .bib Dateien (ACHTUNG: 3 Artikel!)\n4. Lies Plan.txt\n5. Tiefgehendes Review mit Fokus auf:\n   - Philologische Genauigkeit (Pali-Begriffe, Quellenverweise)\n   - Bruecke zwischen buddhistischer Tradition und moderner Psychologie\n   - Hermeneutische Methodik\n   - Religions_humanities-Template-Konformitaet\n   - Umgang mit Primaerquellen vs. Sekundaerliteratur\n   - Kohaerenz aller 3 Artikel\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\Psychologie\\HOLD__Pali-Psycho\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review (alle 3 Artikel bewerten!).\n\nHANDOFF: 5-Zeilen-Zusammenfassung"
+        },
+        "k_einzel_metaphern": {
+            "type": "inline",
+            "content": "EINZELREVIEW: Metaphern\n=====================\n\nDu bist ein spezialisierter Reviewer fuer LINGUISTIK und METAPHERNTHEORIE.\nDu hast Expertise in: Konzeptuelle Metapherntheorie (Lakoff/Johnson), Diskursanalyse, qualitative Methoden, Methodenentwicklung.\n\nDEIN PROJEKT:\nPfad: {HOME}\\OneDrive\\Forschung\\Methoden\\!!DRAFT__Metaphern\nStatus: !!DRAFT (Fast Track, in Arbeit)\nTemplate: interdisciplinary\nMethoden-Workflow: {HOME}\\OneDrive\\Forschung\\_templates\\WORKFLOW_METAPHERNANALYSE.md\n\nVORGEHEN:\n1. Lies die Review-Methodik: {HOME}\\OneDrive\\Forschung\\_prompts\\opus\\review_journal_streng.txt\n2. Lies den Methoden-Workflow: {HOME}\\OneDrive\\Forschung\\_templates\\WORKFLOW_METAPHERNANALYSE.md\n3. Lies Sammelreviews (K1, K2) in {HOME}\\OneDrive\\Forschung\\_reviews\\\n4. Lies ALLE .tex und .bib Dateien\n5. Lies Plan.txt\n6. Tiefgehendes Review mit Fokus auf:\n   - Methodologische Rigorositaet als Methoden-Paper\n   - Reproduzierbarkeit der Metaphernanalyse-Methode\n   - Abgrenzung zu bestehenden Metaphern-Methoden\n   - Anwendbarkeit auf verschiedene Domänen\n   - Konsistenz mit WORKFLOW_METAPHERNANALYSE.md\n\nAUSGABE:\nSchreibe: {HOME}\\OneDrive\\Forschung\\Methoden\\!!DRAFT__Metaphern\\_review_einzeln.md\nFormat: Vollstaendiges Peer-Review.\n\nHANDOFF: 5-Zeilen-Zusammenfassung"
+        },
+        "k_einzel_taa": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_einzel_taa.txt"
+        },
+        "k_einzel_spuk": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_einzel_spuk.txt"
+        },
+        "k_einzel_kant": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_einzel_kant.txt"
+        },
+        "k_einzel_frieden": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_einzel_frieden.txt"
+        },
+        "k_einzel_transhumanismus_swr": {
+            "type": "file",
+            "path": "prompts/_private/forschung_k_einzel_transhumanismus_swr.txt"
+        }
+    },
+    "telegram": {
+        "enabled": false
+    }
+}

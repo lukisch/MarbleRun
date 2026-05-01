@@ -1,0 +1,58 @@
+{
+    "chain_name": "software-entwicklung",
+    "description": "Software-Pipeline: Opus Controller steuert 3 Worker-Stufen (Sonnet mechanisch, Opus mittel, Opus Deep fuer Projekte/Serien). ATI-Tasks und AUFGABEN.txt aus .SOFTWARE/ abarbeiten.",
+    "mode": "loop",
+    "max_rounds": 50,
+    "runtime_hours": 6,
+    "max_consecutive_blocks": 3,
+
+    "opus_deep_limit": 1,
+
+    "defaults": {
+        "permission_mode": "dontAsk",
+        "allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
+        "timeout_seconds": 3600
+    },
+
+    "links": [
+        {
+            "name": "opus-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "prompt": "software_opus_controller",
+            "continue": true,
+            "description": "Opus Controller: ATI-Tasks lesen, priorisieren, Tasks an die 3 Worker-Stufen zuweisen, Ergebnisse pruefen, Integration"
+        },
+        {
+            "name": "sonnet-worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-6",
+            "prompt": "software_sonnet_worker",
+            "until_full": true,
+            "description": "Sonnet Worker: 8-10 mechanische Tasks abarbeiten (Bug-Fixes, Docs, i18n, Cleanup, Tests)"
+        },
+        {
+            "name": "opus-worker",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "software_opus_worker",
+            "until_full": true,
+            "description": "Opus Worker (mittel): 3-5 anspruchsvolle Tasks (Architektur, Refactoring, Cross-Projekt)"
+        },
+        {
+            "name": "opus-deep",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "software_opus_deep",
+            "until_full": true,
+            "description": "Opus Deep (hoch): 1-2 grosse Aufgaben (ganzes Projekt/Projektserie). LIMIT: Siehe opus_deep_limit."
+        }
+    ],
+
+    "prompts": {
+        "software_opus_controller": {"type": "file", "path": "prompts/software_opus_controller.txt"},
+        "software_sonnet_worker":   {"type": "file", "path": "prompts/software_sonnet_worker.txt"},
+        "software_opus_worker":     {"type": "file", "path": "prompts/software_opus_worker.txt"},
+        "software_opus_deep":       {"type": "file", "path": "prompts/software_opus_deep.txt"}
+    }
+}

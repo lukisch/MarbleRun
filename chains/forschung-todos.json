@@ -1,0 +1,59 @@
+{
+    "chain_name": "forschung-todos",
+    "description": "Forschungs-TODOs: Opus Controller steuert 3 Worker-Stufen (Sonnet mechanisch, Opus mittel, Opus Deep fuer Projekte/Serien). SCIENTIFIC_WORK_NOTES.md als Aufgabenquelle.",
+    "mode": "loop",
+    "max_rounds": 50,
+    "runtime_hours": 4,
+    "max_consecutive_blocks": 3,
+
+    "defaults": {
+        "permission_mode": "dontAsk",
+        "allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
+        "timeout_seconds": 3600
+    },
+
+    "_comment_deep_limit": "opus-deep-limit: Max. Anzahl opus-deep Einsaetze pro Chain-Lauf. Controller muss mitzaehlen und darf nicht mehr als diesen Wert an opus-deep vergeben.",
+    "opus_deep_limit": 1,
+
+    "links": [
+        {
+            "name": "opus-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "prompt": "research_opus_controller",
+            "continue": true,
+            "description": "Opus Controller: Liest SCIENTIFIC_WORK_NOTES.md + Plan.txt, priorisiert, weist Tasks an die 3 Worker-Stufen zu, prueft Ergebnisse"
+        },
+        {
+            "name": "sonnet-worker",
+            "role": "worker",
+            "model": "claude-sonnet-4-6",
+            "prompt": "research_sonnet_worker",
+            "until_full": true,
+            "description": "Sonnet Worker: 8-10 mechanische + einfache inhaltliche Tasks"
+        },
+        {
+            "name": "opus-worker",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "research_opus_worker",
+            "until_full": true,
+            "description": "Opus Worker (mittel): 3-5 anspruchsvolle Tasks (LIT-Issues, Formalisierungen, Argumentationen)"
+        },
+        {
+            "name": "opus-deep",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "research_opus_deep",
+            "until_full": true,
+            "description": "Opus Deep (hoch): 1-2 grosse Aufgaben (ganzes Projekt/Projektserie). LIMIT: Siehe opus_deep_limit."
+        }
+    ],
+
+    "prompts": {
+        "research_opus_controller": {"type": "file", "path": "prompts/research_opus_controller.txt"},
+        "research_sonnet_worker":   {"type": "file", "path": "prompts/research_sonnet_worker.txt"},
+        "research_opus_worker":     {"type": "file", "path": "prompts/research_opus_worker.txt"},
+        "research_opus_deep":       {"type": "file", "path": "prompts/research_opus_deep.txt"}
+    }
+}

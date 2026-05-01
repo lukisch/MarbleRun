@@ -1,0 +1,58 @@
+{
+    "chain_name": "software-bugfix",
+    "description": "Bug-Hunting Kampagne: Opus Controller scannt Projekte systematisch auf Bugs, 3 Worker-Stufen fixen nach Prioritaet (Crashes > Logik > Security > Robustheit).",
+    "mode": "loop",
+    "max_rounds": 30,
+    "runtime_hours": 3,
+    "max_consecutive_blocks": 3,
+
+    "opus_deep_limit": 1,
+
+    "defaults": {
+        "permission_mode": "dontAsk",
+        "allowed_tools": ["Read", "Edit", "Write", "Bash", "Glob", "Grep"],
+        "timeout_seconds": 3600
+    },
+
+    "links": [
+        {
+            "name": "bugfix-controller",
+            "role": "controller",
+            "model": "claude-opus-4-6",
+            "prompt": "software_bugfix_controller",
+            "continue": true,
+            "description": "Bug-Hunting Controller: Projekte scannen, Bugs priorisieren, an 3 Worker-Stufen zuweisen"
+        },
+        {
+            "name": "sonnet-bugfix",
+            "role": "worker",
+            "model": "claude-sonnet-4-6",
+            "prompt": "software_bugfix_sonnet",
+            "until_full": true,
+            "description": "Sonnet Bug-Fix: 8-10 einfache Bugs (bare except, encoding, None-checks)"
+        },
+        {
+            "name": "opus-bugfix",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "software_bugfix_opus",
+            "until_full": true,
+            "description": "Opus Bug-Fix (mittel): 3-5 komplexe Bugs (Logik, Security, Cross-Modul)"
+        },
+        {
+            "name": "opus-deep-audit",
+            "role": "worker",
+            "model": "claude-opus-4-6",
+            "prompt": "software_bugfix_deep",
+            "until_full": true,
+            "description": "Opus Deep Audit: 1-2 Projekte komplett auf Bugs scannen und fixen. LIMIT: Siehe opus_deep_limit."
+        }
+    ],
+
+    "prompts": {
+        "software_bugfix_controller": {"type": "file", "path": "prompts/software_bugfix_controller.txt"},
+        "software_bugfix_sonnet":     {"type": "file", "path": "prompts/software_bugfix_sonnet.txt"},
+        "software_bugfix_opus":       {"type": "file", "path": "prompts/software_bugfix_opus.txt"},
+        "software_bugfix_deep":       {"type": "file", "path": "prompts/software_bugfix_deep.txt"}
+    }
+}

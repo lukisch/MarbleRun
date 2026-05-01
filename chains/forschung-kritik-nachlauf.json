@@ -1,0 +1,69 @@
+{
+    "chain_name": "forschung-kritik-nachlauf",
+    "description": "Nachlauf: 5 fehlende Einzelreviews (TAA, Spuk, Kant, Frieden, Transhumanismus+SWR) aus der Kritik-Schleife",
+    "mode": "once",
+    "max_rounds": 1,
+    "runtime_hours": 12,
+    "deadline": "2026-03-15",
+    "max_consecutive_blocks": 3,
+
+    "links": [
+        {
+            "name": "k-einzel-taa",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_k_einzel_taa",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln Nachlauf: TAA Review"
+        },
+        {
+            "name": "k-einzel-spuk",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_k_einzel_spuk",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln Nachlauf: Spuk Review"
+        },
+        {
+            "name": "k-einzel-kant",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_k_einzel_kant",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln Nachlauf: Kant Friedensframework Review"
+        },
+        {
+            "name": "k-einzel-frieden",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_k_einzel_frieden",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln Nachlauf: Frieden (JPR) Review"
+        },
+        {
+            "name": "k-einzel-transhumanismus-swr",
+            "role": "reviewer",
+            "model": "claude-opus-4-6",
+            "prompt": "forschung_k_einzel_transhumanismus_swr",
+            "continue": false,
+            "until_full": true,
+            "description": "K-einzeln Nachlauf: Transhumanismus + SWR_Methode Review"
+        }
+    ],
+
+    "prompts": {
+        "forschung_k_einzel_taa": {"type": "file", "path": "prompts/_private/forschung_k_einzel_taa.txt"},
+        "forschung_k_einzel_spuk": {"type": "file", "path": "prompts/_private/forschung_k_einzel_spuk.txt"},
+        "forschung_k_einzel_kant": {"type": "file", "path": "prompts/_private/forschung_k_einzel_kant.txt"},
+        "forschung_k_einzel_frieden": {"type": "file", "path": "prompts/_private/forschung_k_einzel_frieden.txt"},
+        "forschung_k_einzel_transhumanismus_swr": {"type": "file", "path": "prompts/_private/forschung_k_einzel_transhumanismus_swr.txt"}
+    },
+
+    "telegram": {
+        "enabled": false
+    }
+}
